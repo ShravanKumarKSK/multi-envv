@@ -4,10 +4,7 @@ on:
   push:
     branches:
       - main
-#et
-env:
-  STAGING_DEPLOY_KEY: ${{ secrets.STAGING_DEPLOY_KEY }}
-  PRODUCTION_DEPLOY_KEY: ${{ secrets.PRODUCTION_DEPLOY_KEY }}
+      - dev
 
 jobs:
   deploy:
@@ -15,13 +12,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Deploy to staging
-        if: env.ENVIRONMENT_NAME == 'staging'
-        run: |
-          # Deploy code to staging environment using STAGING_DEPLOY_KEY
-
+      
+      # Deploy to main branch
       - name: Deploy to production
-        if: env.ENVIRONMENT_NAME == 'production'
+        if: github.ref == 'refs/heads/main'
         run: |
-          # Deploy code to production environment using PRODUCTION_DEPLOY_KEY
+          # Add your deployment script here
+          # This script will only run when a push is made to the main branch
+          echo "Deploying to production..."
+          
+      # Deploy to dev branch
+      - name: Deploy to staging
+        if: github.ref == 'refs/heads/dev'
+        run: |
+          # Add your deployment script here
+          # This script will only run when a push is made to the dev branch
+          echo "Deploying to staging..."
