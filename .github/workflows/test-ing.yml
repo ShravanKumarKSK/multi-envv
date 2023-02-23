@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-#e
+#et
 env:
   STAGING_DEPLOY_KEY: ${{ secrets.STAGING_DEPLOY_KEY }}
   PRODUCTION_DEPLOY_KEY: ${{ secrets.PRODUCTION_DEPLOY_KEY }}
