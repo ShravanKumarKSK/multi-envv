@@ -1,10 +1,18 @@
 name: Deploy
 
-on:
-  push:
+on: 
+  release: 
+    types: [ published, edited]
     branches:
       - main
-      - dev
+  push:  
+    tags:
+      - qa*
+    branches:
+      - qa
+  pull_request: 
+    branches: 
+      - main
 
 jobs:
   deploy:
@@ -15,7 +23,7 @@ jobs:
       
       # Deploy to main branch
       - name: Deploy to production
-        if: github.ref == 'refs/heads/main'
+        # if: github.ref == 'refs/heads/main'
         run: |
           # Add your deployment script here
           # This script will only run when a push is made to the main branch
@@ -23,7 +31,7 @@ jobs:
           
       # Deploy to dev branch
       - name: Deploy to staging
-        if: github.ref == 'refs/heads/dev'
+        # if: github.ref == 'refs/heads/dev'
         run: |
           # Add your deployment script here
           # This script will only run when a push is made to the dev branch
