@@ -1,0 +1,27 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  STAGING_DEPLOY_KEY: ${{ secrets.STAGING_DEPLOY_KEY }}
+  PRODUCTION_DEPLOY_KEY: ${{ secrets.PRODUCTION_DEPLOY_KEY }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to staging
+        if: env.ENVIRONMENT_NAME == 'staging'
+        run: |
+          # Deploy code to staging environment using STAGING_DEPLOY_KEY
+
+      - name: Deploy to production
+        if: env.ENVIRONMENT_NAME == 'production'
+        run: |
+          # Deploy code to production environment using PRODUCTION_DEPLOY_KEY
